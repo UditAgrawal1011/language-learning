@@ -8,7 +8,7 @@ export default function Register() {
 
   const handleRegister = async () => {
     try {
-      await axios.post('http://localhost:5000/api/auth/register', user);
+      await axios.post('https://language-learning-1.onrender.com/api/auth/register', user);
       navigate('/');
     } catch (err) {
       alert("Registration failed");
