@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import {
@@ -21,32 +20,16 @@ export default function AuthPage() {
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
 
-    try {
-      if (isLogin) {
-        const res = await axios.post("/api/auth/login", {
-          email: form.email,
-          password: form.password,
-        });
-        const { token } = res.data;
-        localStorage.setItem("token", token);
-        toast.success("Login successful!");
-        navigate("/dashboard");
-      } else {
-        await axios.post("/api/auth/register", form);
-        toast.success("Registration successful! Please log in.");
-        setIsLogin(true);
-      }
-    } catch (err) {
-      const message =
-        err.response?.data?.message || err.response?.data?.error || "Error";
-      toast.error(message);
-    } finally {
+    setTimeout(() => {
+      localStorage.setItem("token", "dummy_token");
+      toast.success(isLogin ? "Login successful!" : "Registered successfully!");
+      navigate("/dashboard");
       setLoading(false);
-    }
+    }, 1000);
   };
 
   return (
