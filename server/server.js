@@ -20,6 +20,9 @@ app.get("/api/dashboard", (req, res) => {
     trending: ["Duolingo Tips", "Grammar Hacks"],
   });
 });
+app.get('/health', (req, res) => {
+  res.status(200).send('OK');
+});
 
 mongoose
   .connect(process.env.MONGO_URI)
